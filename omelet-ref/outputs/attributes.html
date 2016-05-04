@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Omelet Language Reference: Attributes</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="assets/main.css" />
+
+    <link rel="stylesheet" type="text/css" href="assets/prism.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Shadows+Into+Light|Waiting+for+the+Sunrise" />
+  </head>
+  <body>
+    <header class="doc-header" id="doc-header"><img src="assets/logo1.png" />
+
+      <div class="doc-title">Omelet</div>
+      <div class="mobile-nav" id="top-nav-toggle">&#9776;</div>
+      <nav id="top-nav"><a href="index.html">language reference</a> <a href="https://github.com/reid47/toast">view on github</a></nav>
+    </header>
+
+    <div class="wrapper">
+      <div class="sidebar">
+        <ul>
+          <li><a href="tags.html">tags</a></li>
+          <li><a href="attributes.html">attributes</a></li>
+          <li><a href="interpolations.html">interpolations</a></li>
+          <li><a href="filters.html">filters</a></li>
+          <li><a href="macros.html">macros</a></li>
+          <li><a href="conditionals.html">conditionals</a></li>
+          <li><a href="iteration.html">iteration</a></li>
+          <li><a href="includes.html">includes</a></li>
+          <li><a href="imports.html">imports</a></li>
+          <li><a href="extends.html">extends</a></li>
+          <li><a href="raw_tags.html">raw tags</a></li>
+          <li><a href="comments.html">comments</a></li>
+        </ul>
+      </div>
+      <div class="contents">
+        <h1>Attributes</h1>
+        <p>HTML attributes can be included on tags immediately following the tag name, between <code>[ ]</code> characters. Within the
+          <code>[ ]</code> characters, attributes look the same as they do in HTML, separated by spaces. Note that Omelet does support boolean attributes, like <code>checked</code> below.</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>@a[href="example.com"] This is a link
+@h1[class="big"] This is a headline.
+@button[id="cool" onclick="doSomething();"] Click me.
+@input[type="checkbox" checked]</code></pre>
+
+        <div class="example-label">Rendered HTML:</div>
+
+        <pre class="example"><code>&lt;a href="example.com">This is a link.&lt;/a>
+&lt;h1 class="big">This is a headline.&lt;/h1>
+&lt;button id="cool" onclick="doSomething();">Click me.&lt;/button>
+&lt;input type="checkbox" checked="checked"/></code></pre>
+
+        <p>Since <code>class</code> and <code>id</code> attributes are used so often, Omelet supports a special shorthand syntax for these, similar to Jade and Haml. <code>class</code> attributes can be written as
+          <code>.className</code> and <code>id</code> attributes can be written as
+          <code>#idName</code>, immediately following the tag name and preceding the <code>[ ]</code> characters for the other attributes. You can include multiple <code>.className</code>s and <code>#idName</code>s by placing them back-to-back.</p>
+        <div
+          class="example-label">Omelet template:</div>
+
+      <pre class="example"><code>@h1.big This is a headline.
+@button#cool[onclick="doSomething();"] Click me.
+@a#anchor.class1.class2[href="example.com"] A classy link</code></pre>
+
+      <div class="example-label">Rendered HTML:</div>
+
+      <pre class="example"><code>&lt;h1 class="big">This is a headline.&lt;/h1>
+&lt;button id="cool" onclick="doSomething();">Click me.&lt;/button>
+&lt;a id="anchor" class="class1 class2" href="example.com">A classy link&lt;/a></code></pre></div>
+    </div>
+    <div class="doc-footer">
+      <div class="float-left">Omelet is a template language developed by <a href="http://reidmitchell.net">Reid Mitchell</a>.</div>
+      <div class="float-right">Last updated May 2016</div>
+    </div>
+
+    <script src="assets/prism.js"></script>
+
+
+    <script>
+      var topNavShown = false;
+      document.getElementById("top-nav-toggle").addEventListener("click", function() {
+        if (!topNavShown) {
+          document.getElementById("top-nav").style.display = "block";
+          document.getElementById("doc-header").style.height = "230px";
+          topNavShown = true;
+        } else {
+          document.getElementById("top-nav").style.display = "none";
+          document.getElementById("doc-header").style.height = "86px";
+          topNavShown = false;
+        }
+      })
+    </script>
+  </body>
+</html>

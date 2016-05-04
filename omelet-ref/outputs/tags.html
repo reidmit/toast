@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Omelet Language Reference: Tags</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="assets/main.css" />
+
+    <link rel="stylesheet" type="text/css" href="assets/prism.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Shadows+Into+Light|Waiting+for+the+Sunrise" />
+  </head>
+  <body>
+    <header class="doc-header" id="doc-header"><img src="assets/logo1.png" />
+
+      <div class="doc-title">Omelet</div>
+      <div class="mobile-nav" id="top-nav-toggle">&#9776;</div>
+      <nav id="top-nav"><a href="index.html">language reference</a> <a href="https://github.com/reid47/toast">view on github</a></nav>
+    </header>
+
+    <div class="wrapper">
+      <div class="sidebar">
+        <ul>
+          <li><a href="tags.html">tags</a></li>
+          <li><a href="attributes.html">attributes</a></li>
+          <li><a href="interpolations.html">interpolations</a></li>
+          <li><a href="filters.html">filters</a></li>
+          <li><a href="macros.html">macros</a></li>
+          <li><a href="conditionals.html">conditionals</a></li>
+          <li><a href="iteration.html">iteration</a></li>
+          <li><a href="includes.html">includes</a></li>
+          <li><a href="imports.html">imports</a></li>
+          <li><a href="extends.html">extends</a></li>
+          <li><a href="raw_tags.html">raw tags</a></li>
+          <li><a href="comments.html">comments</a></li>
+        </ul>
+      </div>
+      <div class="contents">
+        <h1>Tags</h1>
+        <p>Tags in Omelet render into HTML tags. Tag names always start with a <code>@</code> character. There are three types of tags in Omelet. They all look similar, but are used in slightly different ways.
+        </p>
+        <p>The first is the <b>block tag</b>. These tag names are written on their own line, and everything that goes inside the tag is written as an indented block beneath the tag name.</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>@div
+    This is a block tag. They can span multiple
+    lines. Everything inside this indented block
+    is part of the the same tag.
+@div
+    Block tags can be nested, like this.
+    @div
+        This is a nested block tag.</code></pre>
+
+        <div class="example-label">Rendered HTML:</div>
+
+        <pre class="example"><code>&lt;div>
+    This is a block tag. They can span multiple
+    lines. Everything inside this indented block
+    is part of the the same tag.
+&lt;/div>
+&lt;div>
+    Block tags can be nested, like this.
+    &lt;div>
+        This is a nested block tag.
+    &lt;/div>
+&lt;/div></code></pre>
+
+        <p>The second type of tag is the <b>line tag</b>. For these, the tag name is written at the start of a line, and everything after the tag name ends up on the inside of the tag. These are helpful when the contents of a tag will only span one line,
+          so you don't need to have a whole indented block to contain them.</p>
+        <p>A single space after a tag name is necessary to separate the tag name from the content of the tag. Any more spaces after the first will be captured as part of the contents of the tag.</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>@h1 This is a headline
+@b This is some bold text
+@ul
+    @li This is a list item, as a line tag, within a ul block tag.</code></pre>
+
+        <div class="example-label">Rendered HTML:</div>
+
+        <pre class="example"><code>&lt;h1>This is a headline&lt;/h1>
+&lt;b>This is some bold text&lt;/b>
+&lt;ul>
+    &lt;li>This is a list item, as a line tag, within a ul block tag.&lt;/li>
+&lt;/ul></code></pre>
+
+        <p>The third type of tag is the <b>inline tag</b>. These can be written in the middle of a block of text, surrounded by <code>{ }</code> characters. These are useful when you want to include a tag around some text without breaking up the text into
+          multiple lines. They are often used with tags like <code>@a</code>, <code>@b</code>, and <code>@span</code>.</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>This is some text with {@b bold words} in it.
+This text has a {@[href="example.com"] link} in it.</code></pre>
+
+        <div class="example-label">Rendered HTML:</div>
+
+        <pre class="example"><code>This is some text with &lt;b>bold words&lt;/b> in it.
+This text has a &lt;a href="example.com">link&lt;/a> in it.</code></pre>
+
+        <p>In all three types of tag, Omelet supports a special shorthand syntax for combining tags, called a <b>multitag</b>. Multitags are useful when you want to surround a piece of text with several tags at once.</p>
+        <p>To write a multitag, you combine tag names back to back, separated by a <code>|</code> character. The leftmost tag name will render into the outermost HTML tag, as shown below.</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>@b|i|u This text is bold, italicized, and underlined.
+@ul
+    @li|a[href="example1.com"] This is a list item and a link.
+    @li|a[href="example2.com"] This is a list item and a link.</code></pre>
+
+        <div class="example-label">Rendered HTML:</div>
+
+        <pre class="example"><code>&lt;b>&lt;i>&lt;u>This text is bold, italicized, and underlined.&lt;/b>&lt;/i>&lt;/u>
+&lt;ul>
+    &lt;li>&lt;a href="example1.com">This is a list item and a link.&lt;/a>&lt;/li>
+    &lt;li>&lt;a href="example2.com">This is a list item and a link.&lt;/a>&lt;/li>
+&lt;/ul></code></pre></div>
+    </div>
+    <div class="doc-footer">
+      <div class="float-left">Omelet is a template language developed by <a href="http://reidmitchell.net">Reid Mitchell</a>.</div>
+      <div class="float-right">Last updated May 2016</div>
+    </div>
+
+    <script src="assets/prism.js"></script>
+
+
+    <script>
+      var topNavShown = false;
+      document.getElementById("top-nav-toggle").addEventListener("click", function() {
+        if (!topNavShown) {
+          document.getElementById("top-nav").style.display = "block";
+          document.getElementById("doc-header").style.height = "230px";
+          topNavShown = true;
+        } else {
+          document.getElementById("top-nav").style.display = "none";
+          document.getElementById("doc-header").style.height = "86px";
+          topNavShown = false;
+        }
+      })
+    </script>
+  </body>
+</html>

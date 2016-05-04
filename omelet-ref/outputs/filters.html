@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Omelet Language Reference: Filters</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="assets/main.css" />
+
+    <link rel="stylesheet" type="text/css" href="assets/prism.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Shadows+Into+Light|Waiting+for+the+Sunrise" />
+  </head>
+  <body>
+    <header class="doc-header" id="doc-header"><img src="assets/logo1.png" />
+
+      <div class="doc-title">Omelet</div>
+      <div class="mobile-nav" id="top-nav-toggle">&#9776;</div>
+      <nav id="top-nav"><a href="index.html">language reference</a> <a href="https://github.com/reid47/toast">view on github</a></nav>
+    </header>
+
+    <div class="wrapper">
+      <div class="sidebar">
+        <ul>
+          <li><a href="tags.html">tags</a></li>
+          <li><a href="attributes.html">attributes</a></li>
+          <li><a href="interpolations.html">interpolations</a></li>
+          <li><a href="filters.html">filters</a></li>
+          <li><a href="macros.html">macros</a></li>
+          <li><a href="conditionals.html">conditionals</a></li>
+          <li><a href="iteration.html">iteration</a></li>
+          <li><a href="includes.html">includes</a></li>
+          <li><a href="imports.html">imports</a></li>
+          <li><a href="extends.html">extends</a></li>
+          <li><a href="raw_tags.html">raw tags</a></li>
+          <li><a href="comments.html">comments</a></li>
+        </ul>
+      </div>
+      <div class="contents">
+        <h1>Filters</h1>
+        <p>Omelet allows for a handful of filters to be applied to interpolations. These filters perform simple transformations on the included data before it is rendered into HTML.</p>
+        <p>Filters are applied at the end of an interpolation, like so:
+          <code>{variableName|filterName}</code>. Some filters take arguments:
+          <code>{variableName|filterName arg1 arg2}</code>. Multiple filters can be applied to the same interpolation, in which case they are applied in order from left to right: <code>{variableName|filter1|filter2}</code>.</p>
+        <p>Here are some examples. Assume that we have in the context a variable <code>name</code> with the value <code>"Reid Mitchell"</code>.</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>{name}
+{name|upper}
+{name|length}
+{name|prepend "mr. "}
+{name|lower|replace " " "_"}</code></pre>
+
+        <div class="example-label">Rendered HTML:</div>
+
+        <pre class="example"><code>Reid Mitchell
+REID MITCHELL
+13
+Mr. Reid Mitchell
+reid_mitchell</code></pre>
+
+        <p>An important note is that Omelet will never raise a type error when applying a filter. There are some filters that seem to make an assumption about the type of their input (such as <code>length</code>, which seems to want either a string or an
+          array). These filters will just return a less-than-helpful result when given input of an unexpected type. For example, the filter <code>length</code> returns 1 whenever it is applied to something other than a string or an array.</p>
+        <p>Here is the full list of filters supported by Omelet, along with their behavior.
+        </p>
+        <dl><dt><b><code>escape</code></b></dt>
+          <dd>HTML-escapes its input text. This means replacing ampersands with <code>&amp;amp;</code> and angle brackets with <code>&amp;lt;</code> and <code>&amp;gt;</code>.</dd><dt><b><code>upper</code></b></dt>
+          <dd>Makes all characters in the input text uppercase, when they are letters, and leaves them unchanged otherwise.</dd><dt><b><code>lower</code></b></dt>
+          <dd>Makes all characters in the input text lowercase, when they are letters, and leaves them unchanged otherwise.</dd><dt><b><code>trim</code></b></dt>
+          <dd>Removes all whitespace from the beginning and end of the input text.</dd><dt><b><code>ltrim</code></b></dt>
+          <dd>Removes all whitespace from the beginning of the input text.</dd><dt><b><code>rtrim</code></b></dt>
+          <dd>Removes all whitespace frmo the end of the input text.</dd><dt><b><code>replace ptrn val</code></b></dt>
+          <dd>Converts the input text to a string, if necessary, and then replaces all instances of <code>ptrn</code> with <code>val</code> in the input string.
+          </dd><dt><b><code>default val</code></b></dt>
+          <dd>If the input text is an empty string, an undefined value, or
+            <code>null</code>, <code>val</code> is inserted in its place.</dd><dt><b><code>truncate n</code></b></dt>
+          <dd>Cuts off all but the first <code>n</code> characters of the input text, and appends a <code>...</code> to the end of the truncated string.</dd><dt><b><code>truncate_words n</code></b></dt>
+          <dd>Splits the input into words (based on spaces), then cuts off all but the first <code>n</code> words of the input and appends a <code>...</code> to the end of the truncated string.</dd><dt><b><code>prepend s</code></b></dt>
+          <dd>Converts the input to a string, then adds <code>s</code> to the beginning of the input string.</dd><dt><b><code>append s</code></b></dt>
+          <dd>Converts the input to a string, then adds <code>s</code> to the end of the input string.</dd><dt><b><code>length</code></b></dt>
+          <dd>If the input is a string, returns the number of characters. If the input is an array, returns the number of elements. Otherwise, returns 1.</dd><dt><b><code>starts_with s</code></b></dt>
+          <dd>If the input is a string, returns <code>true</code> if it starts with the substring <code>s</code> and <code>false</code> otherwise. If the input is not a string, it returns <code>false</code>.</dd><dt><b><code>ends_with s</code></b></dt>
+          <dd>If the input is a string, returns <code>true</code> if it ends with the substring <code>s</code> and <code>false</code> otherwise. If the input is not a string, it returns <code>false</code>.</dd><dt><b><code>contains s</code></b></dt>
+          <dd>If the input is a string, returns <code>true</code> if it contains the substring <code>s</code> and <code>false</code> otherwise. If the input is an array, returns <code>true</code> if the it contains the element <code>s</code>, and <code>false</code>            otherwise. In all other cases, it returns <code>false</code>.</dd><dt><b><code>split sep</code></b></dt>
+          <dd>If the input is a string, splits the string into an array, with elements separated by instances of <code>sep</code>. If the input is not a string, returns an array with only one element, the original input.</dd><dt><b><code>join sep</code></b></dt>
+          <dd>If the input is an array, concatenates all elements together as strings, separated by <code>sep</code>. If the input is not an array, it returns the original input.</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="doc-footer">
+      <div class="float-left">Omelet is a template language developed by <a href="http://reidmitchell.net">Reid Mitchell</a>.</div>
+      <div class="float-right">Last updated May 2016</div>
+    </div>
+
+    <script src="assets/prism.js"></script>
+
+
+    <script>
+      var topNavShown = false;
+      document.getElementById("top-nav-toggle").addEventListener("click", function() {
+        if (!topNavShown) {
+          document.getElementById("top-nav").style.display = "block";
+          document.getElementById("doc-header").style.height = "230px";
+          topNavShown = true;
+        } else {
+          document.getElementById("top-nav").style.display = "none";
+          document.getElementById("doc-header").style.height = "86px";
+          topNavShown = false;
+        }
+      })
+    </script>
+  </body>
+</html>

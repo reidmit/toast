@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Omelet Language Reference: Extends</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="assets/main.css" />
+
+    <link rel="stylesheet" type="text/css" href="assets/prism.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Shadows+Into+Light|Waiting+for+the+Sunrise" />
+  </head>
+  <body>
+    <header class="doc-header" id="doc-header"><img src="assets/logo1.png" />
+
+      <div class="doc-title">Omelet</div>
+      <div class="mobile-nav" id="top-nav-toggle">&#9776;</div>
+      <nav id="top-nav"><a href="index.html">language reference</a> <a href="https://github.com/reid47/toast">view on github</a></nav>
+    </header>
+
+    <div class="wrapper">
+      <div class="sidebar">
+        <ul>
+          <li><a href="tags.html">tags</a></li>
+          <li><a href="attributes.html">attributes</a></li>
+          <li><a href="interpolations.html">interpolations</a></li>
+          <li><a href="filters.html">filters</a></li>
+          <li><a href="macros.html">macros</a></li>
+          <li><a href="conditionals.html">conditionals</a></li>
+          <li><a href="iteration.html">iteration</a></li>
+          <li><a href="includes.html">includes</a></li>
+          <li><a href="imports.html">imports</a></li>
+          <li><a href="extends.html">extends</a></li>
+          <li><a href="raw_tags.html">raw tags</a></li>
+          <li><a href="comments.html">comments</a></li>
+        </ul>
+      </div>
+      <div class="contents">
+        <h1>Extends</h1>
+        <p>Omelet does template inheritance through the <code>extends</code> keyword. Template inheritance allows you to build up complex parent-child relationships between templates. When used correctly, they can save the template designer a lot of time
+          by allowing her to reuse the same parent templates over and over again.</p>
+        <p>To see how template inheritance words, consider the following template, which we will call <code>parent.oml</code>:</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>## parent.oml
+
+@html
+    @head
+        @title {site_title()}
+    @body
+        {site_content()}</code></pre>
+
+        <p>Note that this template calls two macros which are not defined anywhere: <code>site_title</code> and <code>page_content</code>. Indeed, if this template were rendered on its own, Omelet would raise an exception because it cannot find those templates.</p>
+        <p>However, this template is designed to be <b>extended</b> by child templates. Consider this template, which we will call <code>child.oml</code>:</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>>extend parent.oml
+
+>def site_title():
+    My Website : {page_title()}
+
+>def site_content():
+    @h1 Hello, everybody! Welcome to my website!
+    {page_content()}</code></pre>
+
+        <p>Okay, now we see the definitions of <code>site_title</code> and <code>site_content</code>. <code>extend</code> works by evaluating the macros defined in the current file, and passing these macro definitions over to the context of the extended
+          file. The extended file gets evaluated with access to these macros.</p>
+        <p>However, we have two macros that are called in <code>child.oml</code> that are still not defined anywhere: <code>page_title</code> and <code>page_content</code>. This is because <code>child.oml</code> was written to be extended one level further.
+          Here's <code>grandchild.oml</code>:</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>>extend child.oml
+
+>def page_title():
+    Page one!
+
+>def page_content():
+    This is the very first page! The rest will look a lot like this,
+    but with a different title and different contents.</code></pre>
+
+        <p>Finally, we reach the end of the parent-child chain. We define
+          <code>page_title</code> and <code>page_content</code> here, which fill in the blanks left in <code>child.oml</code>, and then <code>child.oml</code> in turn fills in the blanks left in <code>parent.oml</code>. This is how template inheritance
+          works. When <code>grandchild.oml</code> is rendered, we get the following:</p>
+        <div class="example-label">Rendered HTML:</div>
+
+        <pre class="example"><code>&lt;html>
+    &lt;head>
+        &lt;title>My Website : Page one!&lt;/title>
+    &lt;/head>
+    &lt;body>
+        &lt;h1>Hello, everybody! Welcome to my website!&lt;/h1>
+        This is the very first page! The rest will look a lot like this,
+        but with a different title and different contents.
+    &lt;/body>
+&lt;/html></code></pre>
+
+        <p>We can see that the rendered version of <code>grandchild.oml</code> contains pieces of code from all three templates described above. The advantage of structuring your templates this way is that when you want to add a new page to your site, you
+          simply need to extend <code>child.oml</code> and supply a new <code>page_title</code> and <code>page_content</code>. Likewise, if you want to change the header text on every page in your site and they all extend <code>child.oml</code>, you only
+          need to change that one file. All of that file's children will be updated automatically.</p>
+      </div>
+    </div>
+    <div class="doc-footer">
+      <div class="float-left">Omelet is a template language developed by <a href="http://reidmitchell.net">Reid Mitchell</a>.</div>
+      <div class="float-right">Last updated May 2016</div>
+    </div>
+
+    <script src="assets/prism.js"></script>
+
+
+    <script>
+      var topNavShown = false;
+      document.getElementById("top-nav-toggle").addEventListener("click", function() {
+        if (!topNavShown) {
+          document.getElementById("top-nav").style.display = "block";
+          document.getElementById("doc-header").style.height = "230px";
+          topNavShown = true;
+        } else {
+          document.getElementById("top-nav").style.display = "none";
+          document.getElementById("doc-header").style.height = "86px";
+          topNavShown = false;
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Omelet Language Reference: Iteration</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="assets/main.css" />
+
+    <link rel="stylesheet" type="text/css" href="assets/prism.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Shadows+Into+Light|Waiting+for+the+Sunrise" />
+  </head>
+  <body>
+    <header class="doc-header" id="doc-header"><img src="assets/logo1.png" />
+
+      <div class="doc-title">Omelet</div>
+      <div class="mobile-nav" id="top-nav-toggle">&#9776;</div>
+      <nav id="top-nav"><a href="index.html">language reference</a> <a href="https://github.com/reid47/toast">view on github</a></nav>
+    </header>
+
+    <div class="wrapper">
+      <div class="sidebar">
+        <ul>
+          <li><a href="tags.html">tags</a></li>
+          <li><a href="attributes.html">attributes</a></li>
+          <li><a href="interpolations.html">interpolations</a></li>
+          <li><a href="filters.html">filters</a></li>
+          <li><a href="macros.html">macros</a></li>
+          <li><a href="conditionals.html">conditionals</a></li>
+          <li><a href="iteration.html">iteration</a></li>
+          <li><a href="includes.html">includes</a></li>
+          <li><a href="imports.html">imports</a></li>
+          <li><a href="extends.html">extends</a></li>
+          <li><a href="raw_tags.html">raw tags</a></li>
+          <li><a href="comments.html">comments</a></li>
+        </ul>
+      </div>
+      <div class="contents">
+        <h1>Iteration</h1>
+        <p>Omelet allows you to iterate over variables in your context with
+          <code>for...in</code> loops. This is most useful when you have an array in your context, and you want to display its contents in your template somehow. You can iterate over it, printing a block of template code once per element in the array.</p>
+        <p>Note that since Omelet (by design) never raises type errors, if you try to iterate over an object that is not an array, it will be treated as if it were an array of length one, with itself as its only element. In the example below, we try to iterate
+          over the number <code>47</code>. The loop is executed once, with the iterator set to <code>47</code> for that single iteration.</p>
+        <p>For these examples, assume we have in our context an array called
+          <code>people</code> with the value <code>["Alice","Bob","Carol"]</code>, and a number called <code>number</code> with the value <code>47</code>.</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>>for person in people:
+    The current person is {person}.
+
+>for n in number:
+    The current number is {n}.</code></pre>
+
+        <div class="example-label">Rendered HTML:</div>
+
+        <pre class="example"><code>The current person is Alice.
+The current person is Bob.
+The current person is Carol.
+
+The current number is 47.</code></pre></div>
+    </div>
+    <div class="doc-footer">
+      <div class="float-left">Omelet is a template language developed by <a href="http://reidmitchell.net">Reid Mitchell</a>.</div>
+      <div class="float-right">Last updated May 2016</div>
+    </div>
+
+    <script src="assets/prism.js"></script>
+
+
+    <script>
+      var topNavShown = false;
+      document.getElementById("top-nav-toggle").addEventListener("click", function() {
+        if (!topNavShown) {
+          document.getElementById("top-nav").style.display = "block";
+          document.getElementById("doc-header").style.height = "230px";
+          topNavShown = true;
+        } else {
+          document.getElementById("top-nav").style.display = "none";
+          document.getElementById("doc-header").style.height = "86px";
+          topNavShown = false;
+        }
+      })
+    </script>
+  </body>
+</html>

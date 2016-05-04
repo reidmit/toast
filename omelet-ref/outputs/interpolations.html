@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Omelet Language Reference: Interpolations</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="assets/main.css" />
+
+    <link rel="stylesheet" type="text/css" href="assets/prism.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Shadows+Into+Light|Waiting+for+the+Sunrise" />
+  </head>
+  <body>
+    <header class="doc-header" id="doc-header"><img src="assets/logo1.png" />
+
+      <div class="doc-title">Omelet</div>
+      <div class="mobile-nav" id="top-nav-toggle">&#9776;</div>
+      <nav id="top-nav"><a href="index.html">language reference</a> <a href="https://github.com/reid47/toast">view on github</a></nav>
+    </header>
+
+    <div class="wrapper">
+      <div class="sidebar">
+        <ul>
+          <li><a href="tags.html">tags</a></li>
+          <li><a href="attributes.html">attributes</a></li>
+          <li><a href="interpolations.html">interpolations</a></li>
+          <li><a href="filters.html">filters</a></li>
+          <li><a href="macros.html">macros</a></li>
+          <li><a href="conditionals.html">conditionals</a></li>
+          <li><a href="iteration.html">iteration</a></li>
+          <li><a href="includes.html">includes</a></li>
+          <li><a href="imports.html">imports</a></li>
+          <li><a href="extends.html">extends</a></li>
+          <li><a href="raw_tags.html">raw tags</a></li>
+          <li><a href="comments.html">comments</a></li>
+        </ul>
+      </div>
+      <div class="contents">
+        <h1>Interpolations</h1>
+        <p>When you want to include in your template the value of a variable from the context, you refer to the variable in an interpolation. Interpolations are simply the variable's name surrounded by
+          <code>{ }</code> characters.</p>
+        <p>Assuming that our current evaluation context contains a variable
+          <code>language</code> with the value <code>"Omelet"</code>, we could write the following.</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>I am writing in {language}.</code></pre>
+
+        <div class="example-label">Rendered HTML:</div>
+
+        <pre class="example"><code>I am writing in Omelet.</code></pre>
+
+        <p>As shown, variable values are simply dropped in to fill the placeholders in the template. If you have arrays or complex objects in your context, you can refer to individual elements or properties as you would expect. Arrays are zero-indexed, just
+          like in JavaScript.</p>
+        <p>Assuming we have in the context an array called <code>people</code> with the value <code>["Alice","Bob","Carol"]</code>, and an object called
+          <code>dog</code> with the value <code>{name: "Fido", age: 3}</code>, we can include these values as shown:</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>The second person is {people[1]}.
+The dog called {dog.name} is {dog.age} years old.</code></pre>
+
+        <div class="example-label">Rendered HTML:</div>
+
+        <pre class="example"><code>The second person is Bob.
+The dog called Fido is 3 years old.</code></pre>
+
+        <p>Interpolations are also how you call macros defined elsewhere in your templates. In this case, interpolations take the form
+          <code>{macroName(arg1,arg2,...)}</code>. If the macro takes no parameters, you must still include the empty parentheses: <code>{macroName()}</code>. Here are some examples.</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>>def displayInfo(name,age):
+    {name} is {age} years old.
+
+{displayInfo("Reid",22)}
+{displayInfo("Luke",8)}</code></pre>
+
+        <div class="example-label">Rendered HTML:</div>
+
+        <pre class="example"><code>Reid is 22 years old.
+Luke is 8 years old.</code></pre></div>
+    </div>
+    <div class="doc-footer">
+      <div class="float-left">Omelet is a template language developed by <a href="http://reidmitchell.net">Reid Mitchell</a>.</div>
+      <div class="float-right">Last updated May 2016</div>
+    </div>
+
+    <script src="assets/prism.js"></script>
+
+
+    <script>
+      var topNavShown = false;
+      document.getElementById("top-nav-toggle").addEventListener("click", function() {
+        if (!topNavShown) {
+          document.getElementById("top-nav").style.display = "block";
+          document.getElementById("doc-header").style.height = "230px";
+          topNavShown = true;
+        } else {
+          document.getElementById("top-nav").style.display = "none";
+          document.getElementById("doc-header").style.height = "86px";
+          topNavShown = false;
+        }
+      })
+    </script>
+  </body>
+</html>

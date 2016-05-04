@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Omelet Language Reference: Imports</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="assets/main.css" />
+
+    <link rel="stylesheet" type="text/css" href="assets/prism.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Shadows+Into+Light|Waiting+for+the+Sunrise" />
+  </head>
+  <body>
+    <header class="doc-header" id="doc-header"><img src="assets/logo1.png" />
+
+      <div class="doc-title">Omelet</div>
+      <div class="mobile-nav" id="top-nav-toggle">&#9776;</div>
+      <nav id="top-nav"><a href="index.html">language reference</a> <a href="https://github.com/reid47/toast">view on github</a></nav>
+    </header>
+
+    <div class="wrapper">
+      <div class="sidebar">
+        <ul>
+          <li><a href="tags.html">tags</a></li>
+          <li><a href="attributes.html">attributes</a></li>
+          <li><a href="interpolations.html">interpolations</a></li>
+          <li><a href="filters.html">filters</a></li>
+          <li><a href="macros.html">macros</a></li>
+          <li><a href="conditionals.html">conditionals</a></li>
+          <li><a href="iteration.html">iteration</a></li>
+          <li><a href="includes.html">includes</a></li>
+          <li><a href="imports.html">imports</a></li>
+          <li><a href="extends.html">extends</a></li>
+          <li><a href="raw_tags.html">raw tags</a></li>
+          <li><a href="comments.html">comments</a></li>
+        </ul>
+      </div>
+      <div class="contents">
+        <h1>Imports</h1>
+        <p>Imports are another way to modularize your template development in Omelet. When you import a file with the statement
+          <code>&gt;import filename.oml</code> (which must occur at the top level of a file, before any code that will be rendered into HTML output), you gain access to all macros defined in <code>filename.oml</code>.</p>
+        <p>This encourages the separation of macro definitions into separate files. Often, you will want to reuse the same macros multiple times across a single project, or across multiple projects. Imports allow you to keep all these macros in one place,
+          so there is only a single point of change if updates need to be made.</p>
+        <p>As an example, let's call this file <code>macros.oml</code>:</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>## macros.oml
+
+>def site_title():
+    This is the name of my website
+
+>def btn(text):
+    @button.specialButton[alt="Click here"] {text}</code></pre>
+
+        <p>Then we can import <code>macros.oml</code> from our current template, assuming the two files are located in the same directory, like this:</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>>import macros.oml
+
+And I can refer to externally defined macros:
+
+{site_title()}
+
+{btn("Hello, world!")}</code></pre>
+
+        <div class="example-label">Rendered HTML:</div>
+
+        <pre class="example"><code>And I can refer to externally defined macros:
+
+This is the name of my website
+
+&lt;button class="specialButton" alt="Click here">Hello, world!&lt;/button></code></pre></div>
+    </div>
+    <div class="doc-footer">
+      <div class="float-left">Omelet is a template language developed by <a href="http://reidmitchell.net">Reid Mitchell</a>.</div>
+      <div class="float-right">Last updated May 2016</div>
+    </div>
+
+    <script src="assets/prism.js"></script>
+
+
+    <script>
+      var topNavShown = false;
+      document.getElementById("top-nav-toggle").addEventListener("click", function() {
+        if (!topNavShown) {
+          document.getElementById("top-nav").style.display = "block";
+          document.getElementById("doc-header").style.height = "230px";
+          topNavShown = true;
+        } else {
+          document.getElementById("top-nav").style.display = "none";
+          document.getElementById("doc-header").style.height = "86px";
+          topNavShown = false;
+        }
+      })
+    </script>
+  </body>
+</html>

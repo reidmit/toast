@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Omelet Language Reference: Conditionals</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="assets/main.css" />
+
+    <link rel="stylesheet" type="text/css" href="assets/prism.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Shadows+Into+Light|Waiting+for+the+Sunrise" />
+  </head>
+  <body>
+    <header class="doc-header" id="doc-header"><img src="assets/logo1.png" />
+
+      <div class="doc-title">Omelet</div>
+      <div class="mobile-nav" id="top-nav-toggle">&#9776;</div>
+      <nav id="top-nav"><a href="index.html">language reference</a> <a href="https://github.com/reid47/toast">view on github</a></nav>
+    </header>
+
+    <div class="wrapper">
+      <div class="sidebar">
+        <ul>
+          <li><a href="tags.html">tags</a></li>
+          <li><a href="attributes.html">attributes</a></li>
+          <li><a href="interpolations.html">interpolations</a></li>
+          <li><a href="filters.html">filters</a></li>
+          <li><a href="macros.html">macros</a></li>
+          <li><a href="conditionals.html">conditionals</a></li>
+          <li><a href="iteration.html">iteration</a></li>
+          <li><a href="includes.html">includes</a></li>
+          <li><a href="imports.html">imports</a></li>
+          <li><a href="extends.html">extends</a></li>
+          <li><a href="raw_tags.html">raw tags</a></li>
+          <li><a href="comments.html">comments</a></li>
+        </ul>
+      </div>
+      <div class="contents">
+        <h1>Conditionals</h1>
+        <p>Omelet allows for simple conditionals in the form of <code>if</code>,
+          <code>elif</code>, and <code>else</code> statements. A conditional statement can have zero or more <code>elif</code> branches, and zero or one <code>else</code> branches. These look much like they do in other languages, but Omelet has one major
+          restriction: the predicate of <code>if</code> and <code>elif</code> statements can only be the name of a variable.</p>
+        <p>A predicate is considered <code>false</code> if the variable referenced is any of the following: a boolean with the value <code>false</code>,
+          <code>null</code>, or <code>undefined</code> (using JavaScript's definition of <code>undefined</code>). The predicate holds in all other cases.</p>
+        <p>Complex boolean expressions are not allowed in Omelet, but you can negate the predicate variable by prepending it with a <code>!</code> character. In this case, the "then" case of the conditional statement gets executed when the predicate is considered
+          <code>false</code>.</p>
+        <p>In the examples below, assume we have in our context a variable
+          <code>b</code> with the value <code>true</code>, a variable <code>n</code> with the value <code>47</code>, and no defined variable called <code>unDef</code>.</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>>if b:
+    This will be printed.
+>else:
+    This will not be printed.
+
+>if !n:
+    This also will not be printed.
+>elif !unDef:
+    This will also be printed.</code></pre>
+
+        <div class="example-label">Rendered HTML:</div>
+
+        <pre class="example"><code>This will be printed.
+This will also be printed.</code></pre></div>
+    </div>
+    <div class="doc-footer">
+      <div class="float-left">Omelet is a template language developed by <a href="http://reidmitchell.net">Reid Mitchell</a>.</div>
+      <div class="float-right">Last updated May 2016</div>
+    </div>
+
+    <script src="assets/prism.js"></script>
+
+
+    <script>
+      var topNavShown = false;
+      document.getElementById("top-nav-toggle").addEventListener("click", function() {
+        if (!topNavShown) {
+          document.getElementById("top-nav").style.display = "block";
+          document.getElementById("doc-header").style.height = "230px";
+          topNavShown = true;
+        } else {
+          document.getElementById("top-nav").style.display = "none";
+          document.getElementById("doc-header").style.height = "86px";
+          topNavShown = false;
+        }
+      })
+    </script>
+  </body>
+</html>

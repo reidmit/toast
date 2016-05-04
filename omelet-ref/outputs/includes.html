@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Omelet Language Reference: Includes</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="assets/main.css" />
+
+    <link rel="stylesheet" type="text/css" href="assets/prism.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Shadows+Into+Light|Waiting+for+the+Sunrise" />
+  </head>
+  <body>
+    <header class="doc-header" id="doc-header"><img src="assets/logo1.png" />
+
+      <div class="doc-title">Omelet</div>
+      <div class="mobile-nav" id="top-nav-toggle">&#9776;</div>
+      <nav id="top-nav"><a href="index.html">language reference</a> <a href="https://github.com/reid47/toast">view on github</a></nav>
+    </header>
+
+    <div class="wrapper">
+      <div class="sidebar">
+        <ul>
+          <li><a href="tags.html">tags</a></li>
+          <li><a href="attributes.html">attributes</a></li>
+          <li><a href="interpolations.html">interpolations</a></li>
+          <li><a href="filters.html">filters</a></li>
+          <li><a href="macros.html">macros</a></li>
+          <li><a href="conditionals.html">conditionals</a></li>
+          <li><a href="iteration.html">iteration</a></li>
+          <li><a href="includes.html">includes</a></li>
+          <li><a href="imports.html">imports</a></li>
+          <li><a href="extends.html">extends</a></li>
+          <li><a href="raw_tags.html">raw tags</a></li>
+          <li><a href="comments.html">comments</a></li>
+        </ul>
+      </div>
+      <div class="contents">
+        <h1>Includes</h1>
+        <p>Omelet allows you to include the contents of other template files in your templates. This is most useful for splitting templates into small, reusable pieces.</p>
+        <p>To include the contents of another template, you use the expression
+          <code>{&gt;include fileName.oml}</code>. This is evaluated exactly the same as if you had copy/pasted the contents of <code>fileName.oml</code> into your current template file. The included file is evaluated within the context of the template
+          that is including it.</p>
+        <p>Let's call this file <code>sidebar.oml</code>:</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>## sidebar.oml
+
+@ul.side-bar
+    @li|a[href="link1.html"] Navigation link 1
+    @li|a[href="link2.html"] Navigation link 2
+    @li|a[href="link3.html"] Navigation link 3</code></pre>
+
+        <p>Now, assuming we are writing a template that will be located in the same directory as <code>sidebar.oml</code> (so that we do not need to worry about a complex relative path name), we can drop the contents of <code>sidebar.oml</code> into our
+          template like this:</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>@html
+    @head
+        @title My website
+    @body
+        {>include sidebar.oml}
+        @div.contents
+            These are some other contents of the page!</code></pre>
+
+        <div class="example-label">Rendered HTML:</div>
+
+        <pre class="example"><code>&lt;html>
+    &lt;head>
+        &lt;title>My website&lt;/title>
+    &lt;/head>
+    &lt;body>
+        &lt;ul class="side-bar">
+            &lt;li>&lt;a href="link1.html">Navigation link 1&lt;/a>&lt;/li>
+            &lt;li>&lt;a href="link2.html">Navigation link 2&lt;/a>&lt;/li>
+            &lt;li>&lt;a href="link3.html">Navigation link 3&lt;/a>&lt;/li>
+        &lt;/ul>
+        &lt;div class="contents">
+            These are some other contents of the page!
+        &lt;/div>
+    &lt;/body>
+&lt;/html></code></pre></div>
+    </div>
+    <div class="doc-footer">
+      <div class="float-left">Omelet is a template language developed by <a href="http://reidmitchell.net">Reid Mitchell</a>.</div>
+      <div class="float-right">Last updated May 2016</div>
+    </div>
+
+    <script src="assets/prism.js"></script>
+
+
+    <script>
+      var topNavShown = false;
+      document.getElementById("top-nav-toggle").addEventListener("click", function() {
+        if (!topNavShown) {
+          document.getElementById("top-nav").style.display = "block";
+          document.getElementById("doc-header").style.height = "230px";
+          topNavShown = true;
+        } else {
+          document.getElementById("top-nav").style.display = "none";
+          document.getElementById("doc-header").style.height = "86px";
+          topNavShown = false;
+        }
+      })
+    </script>
+  </body>
+</html>

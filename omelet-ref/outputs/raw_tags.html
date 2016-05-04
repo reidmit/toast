@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Omelet Language Reference: Raw Tags</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="assets/main.css" />
+
+    <link rel="stylesheet" type="text/css" href="assets/prism.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Shadows+Into+Light|Waiting+for+the+Sunrise" />
+  </head>
+  <body>
+    <header class="doc-header" id="doc-header"><img src="assets/logo1.png" />
+
+      <div class="doc-title">Omelet</div>
+      <div class="mobile-nav" id="top-nav-toggle">&#9776;</div>
+      <nav id="top-nav"><a href="index.html">language reference</a> <a href="https://github.com/reid47/toast">view on github</a></nav>
+    </header>
+
+    <div class="wrapper">
+      <div class="sidebar">
+        <ul>
+          <li><a href="tags.html">tags</a></li>
+          <li><a href="attributes.html">attributes</a></li>
+          <li><a href="interpolations.html">interpolations</a></li>
+          <li><a href="filters.html">filters</a></li>
+          <li><a href="macros.html">macros</a></li>
+          <li><a href="conditionals.html">conditionals</a></li>
+          <li><a href="iteration.html">iteration</a></li>
+          <li><a href="includes.html">includes</a></li>
+          <li><a href="imports.html">imports</a></li>
+          <li><a href="extends.html">extends</a></li>
+          <li><a href="raw_tags.html">raw tags</a></li>
+          <li><a href="comments.html">comments</a></li>
+        </ul>
+      </div>
+      <div class="contents">
+        <h1>Raw Tags</h1>
+        <p>Sometimes, you'll want to include text in a template that you don't want parsed by the Omelet parser. For example, you may want to include inline CSS in a <code>style</code> tag or inline JavaScript in a <code>script</code> tag. Without raw tags,
+          the use of the <code>{</code> character in each of these languages would confuse the Omelet parser.</p>
+        <p>In these cases, you can use <b>raw tags</b>. Raw tags can have names and attributes the same way normal tags do. However, after the tag names and attributes, the character sequence <code>```</code> marks the beginning of the raw text. Everything
+          up until the next <code>```</code> sequence will be parsed as a raw string and passed verbatim to the rendered HTML.</p>
+        <p>Although indentation is mostly ignored within raw tags, Omelet does require that the closing <code>```</code> sequence is at the same level of indentation as the opening <code>@</code> character for the raw tag.</p>
+        <p>In fact, all of the Omelet examples in these language reference pages are written using raw tags. Without raw tags, there would be no way to output actual Omelet code in templates. However, at the moment, there is still no way to include the character
+          sequence <code>```</code> within a raw tag, so the example below uses <code>``</code>. Just know that when actually writing Omelet, you must use <code>```</code>.</p>
+        <div class="example-label">Omelet template:</div>
+
+        <pre class="example"><code>@script[type="text/javascript"] ``
+    function hello(x) {
+        console.log("hello, "+x);
+    }
+``</code></pre>
+
+        <div class="example-label">Rendered HTML:</div>
+
+        <pre class="example"><code>&lt;script type="text/javascript"&gt;
+    function hello(x) {
+        console.log("hello, "+x);
+    }
+&lt;/script&gt;</code></pre></div>
+    </div>
+    <div class="doc-footer">
+      <div class="float-left">Omelet is a template language developed by <a href="http://reidmitchell.net">Reid Mitchell</a>.</div>
+      <div class="float-right">Last updated May 2016</div>
+    </div>
+
+    <script src="assets/prism.js"></script>
+
+
+    <script>
+      var topNavShown = false;
+      document.getElementById("top-nav-toggle").addEventListener("click", function() {
+        if (!topNavShown) {
+          document.getElementById("top-nav").style.display = "block";
+          document.getElementById("doc-header").style.height = "230px";
+          topNavShown = true;
+        } else {
+          document.getElementById("top-nav").style.display = "none";
+          document.getElementById("doc-header").style.height = "86px";
+          topNavShown = false;
+        }
+      })
+    </script>
+  </body>
+</html>
