@@ -2,7 +2,7 @@
 
 <html>
   <head>
-    <title>Omelet Language Reference: Conditionals</title>
+    <title>Omelet Language Reference: Omelet Language Reference</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="assets/main.css" />
 
@@ -36,32 +36,10 @@
         </ul>
       </div>
       <div class="contents">
-        <h1>Conditionals</h1>
-        <p>Omelet allows for simple conditionals in the form of <code>if</code>,
-          <code>elif</code>, and <code>else</code> statements. A conditional statement can have zero or more <code>elif</code> branches, and zero or one <code>else</code> branches. These look much like they do in other languages, but Omelet has one major
-          restriction: the predicate of <code>if</code> and <code>elif</code> statements can only be the name of a variable.</p>
-        <p>A predicate is considered <code>false</code> if the variable referenced is any of the following: a boolean with the value <code>false</code>,
-          <code>null</code>, or <code>undefined</code> (using JavaScript's definition of <code>undefined</code>). The predicate holds in all other cases.</p>
-        <p>Complex boolean expressions are not allowed in Omelet, but you can negate the predicate variable by prepending it with a <code>!</code> character. In this case, the "then" case of the conditional statement gets executed when the predicate is considered
-          <code>false</code>.</p>
-        <p>In the examples below, assume we have in our context a variable
-          <code>b</code> with the value <code>true</code>, a variable <code>n</code> with the value <code>47</code>, and no defined variable called <code>unDef</code>.</p>
-        <div class="example-label">Omelet template:</div>
-
-        <pre class="example"><code>>if b:
-    This will be printed.
->else:
-    This will not be printed.
-
->if !n:
-    This also will not be printed.
->elif !unDef:
-    This will also be printed.</code></pre>
-
-        <div class="example-label">Rendered HTML:</div>
-
-        <pre class="example"><code>This will be printed.
-This will also be printed.</code></pre></div>
+        <h1>Omelet Language Reference</h1>
+        <p>Welcome to the Omelet language reference pages! These pages serve as documentation for the Omelet template language, as well as the first real-world application of Omelet.</p>
+        <p>Use the links on the left to explore the features of Omelet, or view the Omelet templates that generated these pages on GitHub for more examples of Omelet in action!</p>
+      </div>
     </div>
     <div class="doc-footer">
       <div class="float-left">Omelet is a template language developed by <a href="http://reidmitchell.net">Reid Mitchell</a>.</div>

@@ -5,5 +5,7 @@
     @div.doc-title Omelet
     @div.mobile-nav#top-nav-toggle {hamburger}
     @nav#top-nav
-        @a[href="index.html"] language reference
-        @a[href="https://github.com/reid47/toast"] view on github
+        @a[href="index.html"]
+            language reference
+        @a[href="https://github.com/reid47/toast/tree/gh-pages/omelet-ref"]
+            view on github
