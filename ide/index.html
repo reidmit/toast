@@ -21,15 +21,15 @@
       </select>
       <i id="languageArrow" class="fa fa-arrow-circle-right"></i>
       <select id="targetLanguage" name="targetLanguage" onchange="updateToastSettings();">
-          <option value="omelet">Omelet</option>
+          <option value="omelet" selected>Omelet</option>
           <option value="dust">Dust</option>
           <option value="liquid">Liquid</option>
-          <option value="html" selected>HTML</option>
+          <option value="html">HTML</option>
       </select>
 
-      <button id="newfile-btn" onclick="newFile();"><i class="fa fa-file"></i> new file</button>
+      <button id="newfile-btn" onclick="newFile();"><i class="fa fa-file"></i> new</button>
       <!-- <button id="download-btn"><i class="fa fa-download"></i> download file</button> -->
-      <button id="delete-btn" onclick="deleteCurrentFile();"><i class="fa fa-trash"></i> delete file</button>
+      <button id="delete-btn" onclick="deleteCurrentFile();"><i class="fa fa-trash"></i> delete</button>
     </div>
     <div id="sidebar">ok</div>
     <textarea id="input"
@@ -48,23 +48,25 @@
     <script src="toast-web.min.js"></script>
     <script>
         var sourceLanguage = "omelet";
-        var targetLanguage = "html";
+        var targetLanguage = "omelet";
 
         var context = {
-            items: ["reid","caroline","scott","luke"],
             name: "Reid Mitchell",
             age: 22,
             favoriteNumber: 47,
+            isOmeletCool: true,
+            isOmeletNotCool: false,
             people: [
                 {name: "Alice", age: 22},
                 {name: "Bob", age: 30},
                 {name: "Carol", age: 47}
-            ]
+            ],
+            pages: ["first","second","third"]
         }
-        var T = new module.exports.Toast({
+        var T = new module.exports.ToastInstance({
             sourceLanguage: sourceLanguage,
             targetLanguage: targetLanguage,
-            prettyPrint: false,
+            prettyPrint: true,
             isWeb: true
         });
         function render(input) {
@@ -73,7 +75,9 @@
                 return T.renderString(input, context, currentFileName);
             } catch (e) {
                 output.style.color = "red";
-                return e.toString();
+                // return e.toString();
+                return e.toString().replace("\"\\u21D2\"","an indent")
+                                   .replace("\"\\u21D0\"","an outdent");
             }
         }
     </script>

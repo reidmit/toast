@@ -67,7 +67,7 @@ function saveFile(fileName) {
 
 function deleteCurrentFile() {
   if (currentFileName === "") return;
-  var res = confirm("Are you sure you want to delete "+currentFileName+"?");
+  var res = confirm("Are you sure you want to delete the file '"+currentFileName+"'?");
   if (res) {
     localStorage.removeItem(fileStoragePrefix+currentFileName);
     currentFileName = "";
@@ -126,7 +126,7 @@ function updateToastSettings() {
     var targetLangSelect = document.getElementById("targetLanguage");
     sourceLanguage = sourceLangSelect.value;
     targetLanguage = targetLangSelect.value;
-    T = new module.exports.Toast({
+    T = new module.exports.ToastInstance({
         sourceLanguage: sourceLanguage,
         targetLanguage: targetLanguage,
         prettyPrint: false,
